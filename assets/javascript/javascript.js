@@ -22,7 +22,7 @@ function loadButtons(){
 
 $(".gifSearch").click(function(){
     queryterm = this.name;
-    let queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${queryterm}`;
+    let queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${queryterm}&limit=10`;
     // console.log("hello")
     // console.log(this.name);
     $.ajax({
@@ -30,6 +30,11 @@ $(".gifSearch").click(function(){
         method: "GET"
     }).then(function(response) {
         console.log(response);
+
+        for(let i = 0; i < response.data.length; i++){
+            var tempGif = `<img src="${response.data[0].url}" alt="${response.data[0].title}">`
+            $("#gifDiv").append(tempGif);
+        }
     });
 })
 
