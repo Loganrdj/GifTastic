@@ -1,6 +1,5 @@
-var api_key = "69AWaR8C4XriE7DTKgm66N7B9jCmhmkN";
+const api_key = "69AWaR8C4XriE7DTKgm66N7B9jCmhmkN";
 var queryterm = "";
-
 
 var topics = ["Rick and Morty", "The Office", "Brooklyn Nine Nine", "White Collar"];
 
@@ -20,9 +19,11 @@ function loadButtons(){
 //     }
 // })
 
-$(".gifSearch").click(function(){
+function searchGif(info){
+    console.log("searchGif() is Running!")
+    console.log(info)
     $("#gifDiv").html("");
-    queryterm = this.name;
+    queryterm = info.name;
     let queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${queryterm}&limit=10`;
     // console.log("hello")
     // console.log(this.name);
@@ -32,13 +33,20 @@ $(".gifSearch").click(function(){
     }).then(function(response) {
         console.log(response);
         for(let i = 0; i < response.data.length; i++){
-            var tempGif = `<img src="${response.data[i].images.fixed_height.url}" alt="${response.data[i].title}">`
+            var tempGif = `<div>
+            <img class=gif src="${response.data[i].images.fixed_height_still.url}" alt="${response.data[i].title}">
+            <div>Rating: ${response.data[i].rating.toUpperCase()}</div>
+            </div>`
             $("#gifDiv").append(tempGif);
         }
     });
+}
+
+$(".gifSearch").click(function(){
+    // console.log(this);
+    console.log("Button clicked!")
+    searchGif(this);
 })
-
-
 
 $("#submitButton").click(function(event){
     event.preventDefault();
@@ -49,3 +57,7 @@ $("#submitButton").click(function(event){
     }
     loadButtons();
 });
+
+// $("img").hover(function(){
+//     console.log(this);
+// })
