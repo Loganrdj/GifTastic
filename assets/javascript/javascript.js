@@ -34,7 +34,7 @@ function searchGif(info){
         console.log(response);
         for(let i = 0; i < response.data.length; i++){
             var tempGif = `<div>
-            <img class=gif src="${response.data[i].images.fixed_height_still.url}" alt="${response.data[i].title}">
+            <img class=gif src="${response.data[i].images.fixed_height_still.url}" alt="${response.data[i].title}" longdesc="${response.data[i].images.fixed_height.url}"">
             <div>Rating: ${response.data[i].rating.toUpperCase()}</div>
             </div>`
             $("#gifDiv").append(tempGif);
@@ -42,11 +42,11 @@ function searchGif(info){
     });
 }
 
-$(".gifSearch").click(function(){
+$(document).on("click", ".gifSearch", function(){
     // console.log(this);
     console.log("Button clicked!")
     searchGif(this);
-})
+});
 
 $("#submitButton").click(function(event){
     event.preventDefault();
@@ -58,6 +58,14 @@ $("#submitButton").click(function(event){
     loadButtons();
 });
 
-// $("img").hover(function(){
-//     console.log(this);
-// })
+$(document).on("mouseenter",".gif", function(){
+    let tempSrc = $(this).attr("longdesc");
+    $(this).attr("longdesc", $(this).attr("src"));
+    $(this).attr("src", tempSrc);
+})
+
+$(document).on("mouseleave",".gif", function(){
+    let tempSrc = $(this).attr("longdesc");
+    $(this).attr("longdesc", $(this).attr("src"));
+    $(this).attr("src", tempSrc);
+})
