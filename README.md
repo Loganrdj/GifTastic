@@ -1,5 +1,7 @@
 # GifTastic
 
+![](/GifTasticGif.gif)
+
 ## Purpose: Just for fun
 
 This is a front-end web application with the purpose to educate based on Ajax as well as to create a Gif Finder.
